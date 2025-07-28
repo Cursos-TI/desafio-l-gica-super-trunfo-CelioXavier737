@@ -1,43 +1,10 @@
 #include <stdio.h>
 
 // Desafio Super Trunfo - Países
-// Tema 2 - Comparação das Cartas
-// Este código inicial serve como base para o desenvolvimento do sistema de comparação de cartas de cidades. 
+// Tema 1 - Cadastro das Cartas
+// Este código inicial serve como base para o desenvolvimento do sistema de cadastro de cartas de cidades.
 // Siga os comentários para implementar cada parte do desafio.
-
-// Definição das variáveis para armazenar as propriedades das cidades
-// Você pode utilizar o código do primeiro desafio
-
-    
-// Cadastro das Cartas:
-// Implemente a lógica para solicitar ao usuário que insira os dados das cidades
-// utilizando a função scanf para capturar as entradas.
-// utilize o código do primeiro desafio
-
-// Exemplo:
-// printf("Digite o código da cidade: ");
-// scanf("%s", codigo);
-// 
-// (Repita para cada propriedade)
-
-// Comparação de Cartas:
-// Desenvolva a lógica de comparação entre duas cartas.
-// Utilize estruturas de decisão como if, if-else para comparar atributos como população, área, PIB, etc.
-
-// Exemplo:
-// if (populacaoA > populacaoB) {
-//     printf("Cidade 1 tem maior população.\n");
-// } else {
-//     printf("Cidade 2 tem maior população.\n");
-// }
-
-// Exibição dos Resultados:
-// Após realizar as comparações, exiba os resultados para o usuário.
-// Certifique-se de que o sistema mostre claramente qual carta venceu e com base em qual atributo.
-
-// Exemplo:
-// printf("A cidade vencedora é: %s\n", cidadeVencedora);
-
+//Teste larissa
 
 /*
  23/07/2025  - (Célio) foi realizada as alterações e complementos referente ao modulo AVENTUREIRO.
@@ -63,6 +30,16 @@
              - devido ao novo conjunto de comparações o bloco de comparação anterior foi deletado do código
 */
 
+/*
+  28/07/2025 - (Célio) - foI foi alterada a forma de fazer as comparações de cartas, sendo inserido um menu interativo
+             - que permite ao usuário escolher qual a caracteristicva a ser comparada
+             - para diferenciar as duas fases do desenvolvimento os codigo desse novo desafio com as linhas totalmente em maiusculas
+             - comentarios em versalete ou minusculas referem-se a fases do desafio anterior
+             - foi mantido o código de nivel anterior (novato) do mesmo desafio devido não ter havido até agora a interação da tutoria
+*/
+
+
+
 
 int main() {
     // Sugestão: Defina variáveis separadas para cada atributo da cidade.
@@ -78,6 +55,10 @@ int main() {
 
     // * Optei por usar uma referência para o PIB que é Milhões de Reais, para eviar a digitação de numero muito grande
     //   sendo assim PIB inferiores a um Milhão deverá ser informado como 0.xx (zero milhões e x mil reais)  
+
+
+    // declaração de variavel para receber a opção do usuario na escolha do item a comparar
+    int opcao;
 
     // Declaração das variaveis para o cadastro da primeira carta
     char estado1;               // 01 caracter para armazenar o Estado
@@ -156,8 +137,8 @@ int main() {
     if (area1 != 0) {
         densidadedemografica1 = (float)populacao1 / area1;} 
     else            {    
-        densidadedemografica1 = 0.0f; // Ou trate o erro de outra forma
-        printf("Atenção: Área da Carta 1 é zero! Densidade foi atribuida por padrao como 0\n");
+        densidadedemografica1 = 1.0f; // Ou trate o erro de outra forma
+        printf("Atenção: Área da Carta 1 é zero! Densidade foi atribuida por padrao como 1\n");
     } 
 
     // linha original densidadedemografica1 = (float) populacao1 / area1; // a densidade é a divisao da população pela area
@@ -214,8 +195,8 @@ int main() {
     if (area2 != 0) {
         densidadedemografica2 = (float)populacao2 / area2;} 
     else            {    
-        densidadedemografica2 = 0.0f; // Ou trate o erro de outra forma
-        printf("Atenção: Área da Carta 2 é zero! Densidade foi atribuida por padrao como 0\n");
+        densidadedemografica2 = 1.0f; // Ou trate o erro de outra forma
+        printf("Atenção: Área da Carta 2 é zero! Densidade foi atribuida por padrao como 1\n");
     } 
 
     // linha original  - densidadedemografica2 = (float) populacao2 / area2; // a densidade é a divisao da população pela area
@@ -251,7 +232,7 @@ int main() {
        UTILIZANDO IF E ELSE SIMPLES. DESAFIO LOGICA SUPER TRUNFO
                        NÍVEL NOVATO  
        ==========================================================
-    */
+      **** foi mantida aqui por até agora não haver sido enviada manifestação de correção de trabalho
     
 
     printf("\n\n=== COMPARAÇÃO INDIVIDUAL DOS ATRIBUTOS ===\n");
@@ -361,10 +342,132 @@ int main() {
            printf("Resultado: Empate!\n");
         }
 
+     printf("\n\n==== fim da execução ====\n");
+
+   */
     
-    printf("\n\n==== fim da execução ====\n");
 
-  
+    /*
+    ==========================================================
+        NOVO BLOCO: INTERATIVIDADE COM MENU E SWITCH CASE
+        DESAFIO SUPER TRUNFO - NÍVEL AVENTUREIRO
+    ==========================================================
+    */
 
+    
+
+    printf("\n\n=== MENU DE COMPARAÇÃO ===\n");
+    printf("Escolha um atributo para comparar as cartas:\n");
+    printf("1 - População\n");
+    printf("2 - Área\n");
+    printf("3 - PIB\n");
+    printf("4 - Número de Pontos Turísticos\n");
+    printf("5 - Densidade Demográfica (MENOR VENCE)\n");
+    printf("6 - Renda Per Capta\n");
+    printf("7 - Super Poder\n");
+    printf("Digite a opção desejada: ");
+    scanf("%d", &opcao);
+
+    printf("\n=== RESULTADO DA COMPARAÇÃO ===\n");
+
+    switch (opcao) {
+        case 1:
+            printf("População:\n");
+            printf("%s: %lu habitantes\n", nomecidade1, populacao1);
+            printf("%s: %lu habitantes\n", nomecidade2, populacao2);
+            if (populacao1 > populacao2) {
+                printf("Resultado: %s venceu!\n", nomecidade1);
+            } else if (populacao2 > populacao1) {
+                printf("Resultado: %s venceu!\n", nomecidade2);
+            } else {
+                printf("Resultado: Empate!\n");
+            }
+            break;
+
+        case 2:
+            printf("Área:\n");
+            printf("%s: %.2f km²\n", nomecidade1, area1);
+            printf("%s: %.2f km²\n", nomecidade2, area2);
+            if (area1 > area2) {
+                printf("Resultado: %s venceu!\n", nomecidade1);
+            } else if (area2 > area1) {
+                printf("Resultado: %s venceu!\n", nomecidade2);
+            } else {
+                printf("Resultado: Empate!\n");
+            }
+            break;
+
+        case 3:
+            printf("PIB:\n");
+            printf("%s: %.2f milhões de reais\n", nomecidade1, pib1);
+            printf("%s: %.2f milhões de reais\n", nomecidade2, pib2);
+            if (pib1 > pib2) {
+                printf("Resultado: %s venceu!\n", nomecidade1);
+            } else if (pib2 > pib1) {
+                printf("Resultado: %s venceu!\n", nomecidade2);
+            } else {
+                printf("Resultado: Empate!\n");
+            }
+            break;
+
+        case 4:
+            printf("Número de Pontos Turísticos:\n");
+            printf("%s: %d pontos\n", nomecidade1, pontosturisticos1);
+            printf("%s: %d pontos\n", nomecidade2, pontosturisticos2);
+            if (pontosturisticos1 > pontosturisticos2) {
+                printf("Resultado: %s venceu!\n", nomecidade1);
+            } else if (pontosturisticos2 > pontosturisticos1) {
+                printf("Resultado: %s venceu!\n", nomecidade2);
+            } else {
+                printf("Resultado: Empate!\n");
+            }
+            break;
+
+        case 5:
+            printf("Densidade Demográfica (MENOR VENCE):\n");
+            printf("%s: %.2f hab/km²\n", nomecidade1, densidadedemografica1);
+            printf("%s: %.2f hab/km²\n", nomecidade2, densidadedemografica2);
+            if (densidadedemografica1 < densidadedemografica2) {
+                printf("Resultado: %s venceu!\n", nomecidade1);
+            } else if (densidadedemografica2 < densidadedemografica1) {
+                printf("Resultado: %s venceu!\n", nomecidade2);
+            } else {
+                printf("Resultado: Empate!\n");
+            }
+            break;
+
+        case 6:
+            printf("Renda Per Capta:\n");
+            printf("%s: R$ %.2f\n", nomecidade1, rendapercapta1);
+            printf("%s: R$ %.2f\n", nomecidade2, rendapercapta2);
+            if (rendapercapta1 > rendapercapta2) {
+                printf("Resultado: %s venceu!\n", nomecidade1);
+            } else if (rendapercapta2 > rendapercapta1) {
+                printf("Resultado: %s venceu!\n", nomecidade2);
+            } else {
+                printf("Resultado: Empate!\n");
+            }
+            break;
+
+        case 7:
+            printf("Super Poder:\n");
+            printf("%s: %.2f pontos\n", nomecidade1, superpoder1);
+            printf("%s: %.2f pontos\n", nomecidade2, superpoder2);
+            if (superpoder1 > superpoder2) {
+                printf("Resultado: %s venceu!\n", nomecidade1);
+            } else if (superpoder2 > superpoder1) {
+                printf("Resultado: %s venceu!\n", nomecidade2);
+            } else {
+                printf("Resultado: Empate!\n");
+            }
+            break;
+
+        default:
+            printf("Opção inválida! Por favor, selecione uma opção entre 1 e 7.\n");
+            break;
+    }
+
+    printf("\n==== FIM DA COMPARAÇÃO INTERATIVA ====\n");
+   
     return 0;
 }
