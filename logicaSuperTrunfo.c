@@ -470,4 +470,5 @@ int main() {
     printf("\n==== FIM DA COMPARAÇÃO INTERATIVA ====\n");
    
     return 0;
+    
 }
