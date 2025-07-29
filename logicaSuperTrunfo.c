@@ -17,7 +17,7 @@
 /*
   24/07/2025 - (Célio) - foram realizadas as alterações e complementos referente ao modulo MESTRE
              - criada a variavel SUPERPODER baseado na soma de todas os valores numericos menos a Densidade demografica 
-             - apliquei a ideia de abater o valor da densidade na seguinte metodologia:
+             - apliquei a ideia de abater o valor da densidade na seguinte metodologia: 
                SUPERPODER = soma de tudo * (1 / densidade * 100) de forma a gerar um numero onde a densidade quanto mais alta for
                mais alto será o desconto no superpoder da cidade.
 */
@@ -37,7 +37,16 @@
              - comentarios em versalete ou minusculas referem-se a fases do desafio anterior
              - foi mantido o código de nivel anterior (novato) do mesmo desafio devido não ter havido até agora a interação da tutoria
 */
-
+ /* 
+  29/07/2025 - (Célio) - Alterada a forma de fazer as comparações de cartas, sendo inserido substituido o menu interativo pois dois 
+             - aceitando a escolha de dois atributos que não se repetem.
+             - apliquei a proteção contra divisão por zero no tocante a rendapercapta
+             - comentarios em versalete ou minusculas referem-se a fases do desafio anterior
+             - foi mantido o código de nivel anterior (novato) do mesmo desafio devido não ter havido até agora a interação da tutoria
+             - A metodologia usar a densidade como fator de abatimento do superpoder deixou de valer há algumas versões, mas foi mantido o
+             - comentario para efeito de visualização da evolucao do codigo.
+ 
+ */
 
 
 
@@ -101,7 +110,9 @@ int main() {
     int resultadopercapta;               // numero inteiro para armazenar o resultado da comparação de renda per capta
     int resultadosuperpoder;             // numero inteiro para armazenar o resultado da comparação de super poder
 
-
+    // INSERIDO NO NIVEL MESTRE PARA A ESCOLHA DOS ATRIBUTOS A COMPARAR
+    int atributo1, atributo2;  // recebe as escolhas do usuario
+    int somacarta1, somacarta2; // acumula o pontos de cada carta para a comparação
 
     // Mensagem inicial para o usuário para explicar as regras de inserção de dados no que tange ao código da carta
     printf("Cadastre as duas cartas, inserindo os dados e pressionando ENTER\n");
@@ -144,7 +155,14 @@ int main() {
     // linha original densidadedemografica1 = (float) populacao1 / area1; // a densidade é a divisao da população pela area
     // a renda é a divisao do pib pela populacação. Multipliquei por 1 milhão por ser o indice usado na entrada dos dados (milhoes de Reais).
     // assim o valor apresentado no per capta corresponderá a Reais
-    rendapercapta1 = (float) ((pib1 / populacao1) * 1000000);  
+    // alterado conforme orientação da tutoria
+    if (populacao1 != 0) {
+       rendapercapta1 = (float) ((pib1 / populacao1) * 1000000);
+     } else {
+       rendapercapta1 = 0.0f;
+       printf("Atenção: População da Carta 1 é zero! Renda per capita foi atribuída como 0\n");
+     }
+    
   
     // inserido no nivel MESTRE
     superpoder1 = (float)populacao1 + area1 + (pib1 * 1000000.0f) + pontosturisticos1 + rendapercapta1 + (1.0f / densidadedemografica1);
@@ -203,7 +221,13 @@ int main() {
     
     // a renda é a divisao do pib pela populacação. Multipliquei por 1 milhão por ser o indice usado na entrada dos dados (milhoes de Reais).
     // assim o valor apresentado no per capta corresponderá a Reais
-    rendapercapta2 = (float) ((pib2 / populacao2) * 1000000);  
+    // alterado conforme orientação da tutoria
+    if (populacao2 != 0) {
+       rendapercapta2 = (float) ((pib2 / populacao2) * 1000000);
+     } else {
+       rendapercapta2 = 0.0f;
+       printf("Atenção: População da Carta 2 é zero! Renda per capita foi atribuída como 0\n");
+     }
   
     // inserido no nivel MESTRE
     superpoder2 = (float)populacao2 + area2 + (pib2 * 1000000.0f) + pontosturisticos2 + rendapercapta2 + (1.0f / densidadedemografica2);
@@ -351,8 +375,9 @@ int main() {
     ==========================================================
         NOVO BLOCO: INTERATIVIDADE COM MENU E SWITCH CASE
         DESAFIO SUPER TRUNFO - NÍVEL AVENTUREIRO
+        COMENTADO PARA IMPLEMENTAR O NIVEL MESTRE DO JOGO
     ==========================================================
-    */
+    
 
     
 
@@ -466,6 +491,123 @@ int main() {
             printf("Opção inválida! Por favor, selecione uma opção entre 1 e 7.\n");
             break;
     }
+    */
+
+    // INSERIDO NO NIVEL MESTRE
+    // ESCOLHA DO PRIMEIRO ATRIBUTO DE COMPARAÇÃO
+    printf("\n\n=== MENU DE COMPARAÇÃO  - 1° Atributo ===\n");
+    printf("Escolha um atributo para comparar as cartas:\n");
+    printf("1 - População\n");
+    printf("2 - Área\n");
+    printf("3 - PIB\n");
+    printf("4 - Número de Pontos Turísticos\n");
+    printf("5 - Densidade Demográfica (MENOR VENCE)\n");
+    printf("6 - Renda Per Capta\n");
+    printf("7 - Super Poder\n");
+    printf("Digite a opção desejada: ");
+    scanf("%d", &atributo1);
+
+    printf("\n\n"); // dou duas linhas em branco para melhor legibilidade da tela
+
+    // ESCOLHA DO SEGUND ATRIBUTO DE COMPARAÇÃO
+    printf("\n\n=== MENU DE COMPARAÇÃO  - 2° Atributo ===\n");
+    printf("Escolha um atributo para comparar as cartas:\n");
+    if (atributo1 != 1) {printf("1 - População\n");}
+    if (atributo1 != 2) {printf("2 - Área\n");}
+    if (atributo1 != 3) {printf("3 - PIB\n");}
+    if (atributo1 != 4) {printf("4 - Número de Pontos Turísticos\n");}
+    if (atributo1 != 5) {printf("5 - Densidade Demográfica (MENOR VENCE)\n");}
+    if (atributo1 != 6) {printf("6 - Renda Per Capta\n");}
+    if (atributo1 != 7) {printf("7 - Super Poder\n");}
+    printf("Digite a opção desejada: ");
+    scanf("%d", &atributo2);
+
+     
+    // acumulo os valores do primeiro atributo para as cartas 1 e 2 mas antes inicializo o acumuladores
+    somacarta1 = 0;
+    somacarta2 = 0;
+    switch (atributo1) {
+        case 1:
+            somacarta1 += (populacao1 > populacao2) ? 1 : 0;
+            somacarta2 += (populacao2 > populacao1) ? 1 : 0;
+            break;
+        case 2:
+            somacarta1 += (area1 > area2) ? 1 : 0;
+            somacarta2 += (area2 > area1) ? 1 : 0;
+            break;
+        case 3:
+            somacarta1 += (pib1 > pib2) ? 1 : 0;
+            somacarta2 += (pib2 > pib1) ? 1 : 0;
+            break;
+        case 4:
+            somacarta1 += (pontosturisticos1 > pontosturisticos2) ? 1 : 0;
+            somacarta2 += (pontosturisticos2 > pontosturisticos1) ? 1 : 0;
+            break;
+        case 5:
+            // Densidade demográfica: ponto para quem tem menor valor
+            somacarta1 += (densidadedemografica1 < densidadedemografica2) ? 1 : 0;
+            somacarta2 += (densidadedemografica2 < densidadedemografica1) ? 1 : 0;    
+            break;
+        case 6:
+            somacarta1 += (rendapercapta1 > rendapercapta2) ? 1 : 0;
+            somacarta2 += (rendapercapta2 > rendapercapta1) ? 1 : 0;       
+            break;
+        case 7:
+            somacarta1 += (superpoder1 > superpoder2) ? 1 : 0;
+            somacarta2 += (superpoder2 > superpoder1) ? 1 : 0;        
+            break;
+        default:
+            printf("Opção inválida! Por favor, selecione uma opção entre 1 e 7.\n");
+            break;
+    }
+
+    // acumulo os valores do segundo atributo para as cartas 1 e 2
+    switch (atributo2) {
+        case 1:
+            somacarta1 += (populacao1 > populacao2) ? 1 : 0;
+            somacarta2 += (populacao2 > populacao1) ? 1 : 0;
+            break;
+        case 2:
+            somacarta1 += (area1 > area2) ? 1 : 0;
+            somacarta2 += (area2 > area1) ? 1 : 0;
+            break;
+        case 3:
+            somacarta1 += (pib1 > pib2) ? 1 : 0;
+            somacarta2 += (pib2 > pib1) ? 1 : 0;
+            break;
+        case 4:
+            somacarta1 += (pontosturisticos1 > pontosturisticos2) ? 1 : 0;
+            somacarta2 += (pontosturisticos2 > pontosturisticos1) ? 1 : 0;
+            break;
+        case 5:
+            // Densidade demográfica: ponto para quem tem menor valor
+            somacarta1 += (densidadedemografica1 < densidadedemografica2) ? 1 : 0;
+            somacarta2 += (densidadedemografica2 < densidadedemografica1) ? 1 : 0;    
+            break;
+        case 6:
+            somacarta1 += (rendapercapta1 > rendapercapta2) ? 1 : 0;
+            somacarta2 += (rendapercapta2 > rendapercapta1) ? 1 : 0;       
+            break;
+        case 7:
+            somacarta1 += (superpoder1 > superpoder2) ? 1 : 0;
+            somacarta2 += (superpoder2 > superpoder1) ? 1 : 0;        
+            break;
+        default:
+            printf("Opção inválida! Por favor, selecione uma opção dentre  a disponíveis\n");
+            break;
+    }
+
+    // uso a comparação com if pois é um termo mais simples a comparar
+    // imprime os pontos das duas cidades
+    printf("%s: %d pontos\n", nomecidade1, somacarta1);
+    printf("%s: %d pontos\n\n", nomecidade2, somacarta2);
+
+    // operador ternário para mostrar quem venceu ou empate
+    (somacarta1 > somacarta2) ? printf("%s venceu\n", nomecidade1) :
+    (somacarta2 > somacarta1) ? printf("%s venceu\n", nomecidade2) :
+    printf("%s e %s empataram\n", nomecidade1, nomecidade2);
+
+
 
     printf("\n==== FIM DA COMPARAÇÃO INTERATIVA ====\n");
    
